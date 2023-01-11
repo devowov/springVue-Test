@@ -1,6 +1,7 @@
 
 module.exports = {
     outputDir: '../main/resources/static',
+    indexPath: '../templates/index.html',
     devServer: {
         proxy: {
             '/data': {
