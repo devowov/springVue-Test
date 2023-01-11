@@ -4,6 +4,7 @@
     <div>
       {{ message }}
     </div>
+    <h4>{{count}}</h4>
     <div id="nav">
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link> |
@@ -14,7 +15,7 @@
 </template>
 
 <script>
-const axios = require('axios');
+// const axios = require('axios');
 
 export default {
   data : function() {
@@ -25,28 +26,41 @@ export default {
     }
   },
   methods : {
-    load: function() {
-      axios.get("/data", {
-        params: {
-          msg: "Index..."
-        },
-        timeout: 1000
+  //   load: function() {
+  //     axios.get("/data", {
+  //       params: {
+  //         msg: "Index..."
+  //       },
+  //       timeout: 1000
+  //     })
+  //     .then( res => {
+  //       //console.log(res)
+  //       console.log(res.data)
+  //       this.message = res.data.message;
+  //     })
+  //     .catch(
+  //         error => {
+  //           console.log("Error : " + error);
+  //           //console.log("Data가 없습니다.");
+  //         }
+  //     );
+  //   }
+    onResize(){
+      // console.log(document.documentElement.clientWidth)
+
+      return this.$store.commit('changeImg', {
+        width:document.documentElement.clientWidth
       })
-      .then( res => {
-        //console.log(res)
-        console.log(res.data)
-        this.message = res.data.message;
-      })
-      .catch(
-          error => {
-            console.log("Error : " + error);
-            //console.log("Data가 없습니다.");
-          }
-      );
+    }
+  },
+  computed:{
+    count() {
+      return this.$store.state.count;
     }
   },
   mounted : function() {
-    this.load();
+   // this.load();
+    window.addEventListener('resize', this.onResize);
   }
 }
 </script>
